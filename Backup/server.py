@@ -1,15 +1,8 @@
-import os, json, re, sqlite3, tempfile, urllib.request, urllib.error, socket, threading
+import os, json, re, sqlite3, tempfile, urllib.request, urllib.error
 from datetime import datetime, timezone, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, quote
 from pathlib import Path
-
-try:
-    from flask import Flask, Response, request
-except Exception:
-    Flask = None
-    Response = None
-    request = None
 
 try:
     from pypdf import PdfReader
@@ -23,7 +16,7 @@ except Exception:
 ROOT = Path(__file__).parent
 PUBLIC = ROOT / 'public'
 DATA = ROOT / 'data'
-DB_PATH = Path(os.getenv('KARMAYOGI_DB_PATH', '/tmp/karmayogi.db' if os.getenv('VERCEL') else str(ROOT / 'karmayogi.db')))
+DB_PATH = ROOT / 'karmayogi.db'
 PORT = int(os.getenv('PORT', '3000'))
 MAX_UPLOAD = 12 * 1024 * 1024
 MAX_TEXT = 120_000
@@ -775,133 +768,6 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:
             if db: db.close()
             self.send_json({'error': str(e)},500)
-
-
-# ---------------------------------------------------------------------------
-# Vercel compatibility
-#
-# The original prototype uses ThreadingHTTPServer for local development.
-# Vercel expects a web application callable rather than a long-running socket
-# server. The Flask bridge below keeps the existing Handler and exposes it as
-# a WSGI application for Vercel.
-#
-# Local usage remains unchanged:
-#     python server.py
-#
-# On Vercel, the exported `app` object is used.
-# ---------------------------------------------------------------------------
-
-class _VercelServer:
-    server_version = 'KarmayogiAI/1.0'
-    sys_version = ''
-    timeout = None
-
-
-def _run_handler_request(method, target, headers, body):
-    """Run the existing BaseHTTPRequestHandler over a socket pair."""
-    client_sock, server_sock = socket.socketpair()
-    client_sock.settimeout(55)
-    server_sock.settimeout(55)
-
-    request_lines = [f'{method} {target} HTTP/1.1']
-    for key, value in headers.items():
-        if key.lower() not in {'connection', 'content-length'}:
-            request_lines.append(f'{key}: {value}')
-    request_lines.append('Connection: close')
-    request_lines.append(f'Content-Length: {len(body)}')
-    raw_request = ('\r\n'.join(request_lines) + '\r\n\r\n').encode('iso-8859-1') + body
-
-    error_holder = []
-
-    def serve():
-        try:
-            Handler(server_sock, ('127.0.0.1', 0), _VercelServer())
-        except Exception as exc:
-            error_holder.append(exc)
-        finally:
-            try:
-                server_sock.close()
-            except Exception:
-                pass
-
-    worker = threading.Thread(target=serve, daemon=True)
-    worker.start()
-
-    try:
-        client_sock.sendall(raw_request)
-        client_sock.shutdown(socket.SHUT_WR)
-        chunks = []
-        while True:
-            try:
-                chunk = client_sock.recv(65536)
-            except socket.timeout:
-                break
-            if not chunk:
-                break
-            chunks.append(chunk)
-    finally:
-        try:
-            client_sock.close()
-        except Exception:
-            pass
-
-    worker.join(timeout=2)
-    raw_response = b''.join(chunks)
-
-    if error_holder and not raw_response:
-        raise error_holder[0]
-
-    header_end = raw_response.find(b'\r\n\r\n')
-    if header_end < 0:
-        raise RuntimeError('Backend did not return a valid HTTP response')
-
-    header_block = raw_response[:header_end].decode('iso-8859-1')
-    response_body = raw_response[header_end + 4:]
-    response_lines = header_block.split('\r\n')
-    status_parts = response_lines[0].split(' ', 2)
-    status_code = int(status_parts[1]) if len(status_parts) > 1 else 500
-
-    response_headers = []
-    for line in response_lines[1:]:
-        if ':' not in line:
-            continue
-        key, value = line.split(':', 1)
-        if key.lower() not in {'content-length', 'connection', 'server', 'date'}:
-            response_headers.append((key, value.strip()))
-
-    return status_code, response_headers, response_body
-
-
-if Flask is not None:
-    app = Flask(__name__)
-
-    @app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'])
-    @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'])
-    def vercel_app(path):
-        target = request.full_path
-        if target.endswith('?'):
-            target = target[:-1]
-        body = request.get_data(cache=False) or b''
-        headers = {key: value for key, value in request.headers.items()}
-
-        try:
-            status_code, response_headers, response_body = _run_handler_request(
-                request.method, target, headers, body
-            )
-            return Response(response_body, status=status_code, headers=dict(response_headers))
-        except Exception as exc:
-            return Response(
-                json.dumps({'error': str(exc)}),
-                status=500,
-                content_type='application/json',
-            )
-
-    try:
-        init_db()
-    except Exception as exc:
-        print(f'[startup] database initialization warning: {exc}')
-else:
-    app = None
 
 
 if __name__ == '__main__':
