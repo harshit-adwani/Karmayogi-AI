@@ -24,7 +24,7 @@ ROOT = Path(__file__).parent
 PUBLIC = ROOT / 'public'
 DATA = ROOT / 'data'
 DB_PATH = Path(os.getenv('KARMAYOGI_DB_PATH', '/tmp/karmayogi.db' if os.getenv('VERCEL') else str(ROOT / 'karmayogi.db')))
-PORT = int(os.getenv('PORT', '3000'))
+PORT = int(os.getenv('PORT') or '3000')
 MAX_UPLOAD = 12 * 1024 * 1024
 MAX_TEXT = 120_000
 
