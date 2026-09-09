@@ -1,0 +1,14 @@
+[
+  {"id":"igot-001","title":"Data Driven Decision Making For Government","provider":"Capacity Building Commission","duration":"2h 30m","skills":["Data Analysis","Data Visualization","Decision Making"],"url":"https://www.igotkarmayogi.gov.in/","level":"Intermediate"},
+  {"id":"igot-002","title":"Microsoft Excel for Beginners","provider":"Microsoft","duration":"7h 4m","skills":["Excel","Data Analysis"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-003","title":"Digital Safety Essentials","provider":"Microsoft","duration":"1h 15m","skills":["Cybersecurity","Digital Governance"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-004","title":"Introduction to Public Policy","provider":"Indian School of Public Policy","duration":"2h 55m","skills":["Public Policy","Governance","Communication"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-005","title":"Introduction to Government eMarketplace","provider":"Karmayogi Bharat","duration":"5m","skills":["GeM","Procurement","Digital Governance"],"url":"https://portal.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-006","title":"Basics of Administrative Law","provider":"LBSNAA","duration":"44m","skills":["Administrative Law","Governance"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-007","title":"Introduction to Project Management","provider":"Quality Council of India","duration":"1h 30m","skills":["Project Management","Leadership"],"url":"https://www.igotkarmayogi.gov.in/","level":"Intermediate"},
+  {"id":"igot-008","title":"AI for Beginners","provider":"Invest India","duration":"25m","skills":["AI/ML","Digital Skills","Data Analysis"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-009","title":"Effective Communication","provider":"iGOT Karmayogi","duration":"1h","skills":["Communication","Leadership"],"url":"https://www.igotkarmayogi.gov.in/","level":"Beginner"},
+  {"id":"igot-010","title":"Public Procurement Framework of GOI","provider":"Department of Expenditure","duration":"20m","skills":["Procurement","Governance","Financial Management"],"url":"https://portal.igotkarmayogi.gov.in/","level":"Intermediate"},
+  {"id":"igot-011","title":"SQL & Database Fundamentals","provider":"Prototype Learning Partner","duration":"3h","skills":["SQL","Data Analysis","Database Management"],"url":"https://www.igotkarmayogi.gov.in/","level":"Intermediate"},
+  {"id":"igot-012","title":"Python for Data Analysis","provider":"Prototype Learning Partner","duration":"4h","skills":["Python","Data Analysis","Data Visualization"],"url":"https://www.igotkarmayogi.gov.in/","level":"Intermediate"}
+]

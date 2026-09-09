@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#F6EEDD" />
+    <title>Karmayogi AI — Competency Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F6EEDD;
+            --panel: #FFFDF8;
+            --panel2: #E8C66A;
+            --panel3: #FFFDF8;
+            --text: #17365D;
+            --muted: #48617F;
+            --line: #DCCBA8;
+            --accent: #9b1ec8;
+            --accent2: #2454A6;
+            --gold: #B98416;
+            --danger: #B45309;
+            --ok: #2454A6;
+            --shadow: 0 24px 70px rgba(23, 54, 93, .12)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif
+        }
+
+        body {
+            background: radial-gradient(circle at 78% -10%, rgba(36, 84, 166, .10) 0, transparent 34%), radial-gradient(circle at 15% 100%, rgba(200, 146, 30, .10) 0, transparent 28%), var(--bg)
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        code {
+            color: #2454A6
+        }
+
+        .small {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .app-shell {
+            min-height: 100vh
+        }
+
+        .topbar {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(23, 54, 93, .98);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 50
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font: 700 19px 'Space Grotesk'
+        }
+
+        .brandmark {
+            height: 32px;
+            width: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #C8921E, #2454A6);
+            display: grid;
+            place-items: center;
+            color: #FFFFFF;
+            font-weight: 900
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .toprole {
+            padding: 8px 11px;
+            border: 1px solid rgb(255 255 255 / 65%);
+            border-radius: 999px;
+            color: #FFFDF8;
+            font-size: 13px
+        }
+
+        .avatar {
+            height: 35px;
+            width: 35px;
+            border: 1px solid #E8C66A;
+            background: #2454A6;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-weight: 800
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 72px)
+        }
+
+        .sidebar {
+            border-right: 1px solid var(--line);
+            padding: 18px 14px;
+            background: rgba(23, 54, 93, .08);
+            position: sticky;
+            top: 72px;
+            height: calc(100vh - 72px);
+            overflow: auto
+        }
+
+        .profile-mini {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: linear-gradient(150deg, rgba(36, 84, 166, .10), rgba(23, 54, 93, .06));
+            margin-bottom: 17px
+        }
+
+        .profile-name {
+            font-weight: 800;
+            font-size: 14px
+        }
+
+        .level {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px
+        }
+
+        .xpbar {
+            height: 6px;
+            background: #ffffff;
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 8px 0
+        }
+
+        .xpfill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            width: 72%
+        }
+
+        .nav-title {
+            font-size: 10px;
+            letter-spacing: .15em;
+            color: #48617F;
+            margin: 17px 10px 7px;
+            text-transform: uppercase
+        }
+
+        .nav button {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #48617F;
+            padding: 10px 11px;
+            border-radius: 11px;
+            text-align: left;
+            margin: 2px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav button:hover {
+            background: #F6EEDD;
+            color: #17365D
+        }
+
+        .nav button.active {
+            background: #FFFFFF;
+            border-color: #48617F;
+            color: #17365D
+        }
+
+        .nav button span:last-child {
+            font-size: 12px;
+            color: #48617F
+        }
+
+        .sidebar-foot {
+            margin-top: 18px;
+            padding: 12px;
+            border: 1px solid #E8C66A;
+            border-radius: 14px;
+            background: #FFFDF8;
+            color: #48617F;
+            line-height: 1.5;
+            font-size: 12px
+        }
+
+        .main {
+            padding: 30px 34px 60px;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto
+        }
+
+        .page-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px
+        }
+
+        .page-head h1,
+        .page-head h2 {
+            font: 700 32px/1.05 'Space Grotesk';
+            margin: 7px 0 7px
+        }
+
+        .page-head h2 {
+            font-size: 28px
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: .14em;
+            color: var(--accent);
+            font-weight: 800;
+            text-transform: uppercase
+        }
+
+        .sub {
+            color: var(--muted);
+            line-height: 1.55;
+            margin: 0
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #FFFDF8;
+            color: #17365D;
+            font-size: 12px;
+            white-space: nowrap
+        }
+
+        .badge.hot {
+            border-color: #E8C66A;
+            background: #F6EEDD;
+            color: #17365D
+        }
+
+        .badge.ok {
+            border-color: #2454A6;
+            background: #FFFDF8;
+            color: #2454A6
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px
+        }
+
+        .grid.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .grid.three {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        .stats {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            display: grid;
+            gap: 16px
+        }
+
+        .card {
+            background: linear-gradient(145deg, rgba(255, 248, 239, .96), rgba(252, 230, 201, .94));
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 12px 38px rgba(23, 54, 93, .08)
+        }
+
+        .stat {
+            min-height: 120px
+        }
+
+        .label {
+            font-size: 11px;
+            letter-spacing: .12em;
+            color: #48617F
+        }
+
+        .value {
+            font: 700 29px 'Space Grotesk';
+            margin-top: 10px
+        }
+
+        .delta {
+            font-size: 12px;
+            color: var(--accent);
+            margin-top: 7px
+        }
+
+        .section-title {
+            font: 700 16px 'Space Grotesk';
+            margin: 20px 0 10px
+        }
+
+        .section-title:first-child {
+            margin-top: 0
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 9px
+        }
+
+        .skill {
+            margin: 13px 0
+        }
+
+        .skilltop {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px
+        }
+
+        .bar {
+            height: 7px;
+            background: #FFFDF8;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid #E8C66A
+        }
+
+        .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7eb2faa1, var(--accent2));
+        }
+
+        .gap {
+            color: var(--gold) !important
+        }
+
+        .status {
+            color: #48617F
+        }
+
+        .mission,
+        .list-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 13px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E8C66A
+        }
+
+        .mission:last-child,
+        .list-row:last-child {
+            border-bottom: 0
+        }
+
+        .check {
+            height: 25px;
+            width: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: #FFFDF8;
+            color: var(--accent)
+        }
+
+        .check.done {
+            background: #E8C66A;
+            border-color: #2454A6
+        }
+
+        .xp {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700
+        }
+
+        .primary,
+        .ghost,
+        .danger {
+            border-radius: 11px;
+            padding: 11px 14px;
+            font-weight: 700;
+            border: 1px solid transparent
+        }
+
+        .primary {
+            background: linear-gradient(135deg, var(--accent), #2454A6);
+            color: #FFFFFF
+        }
+
+        .ghost {
+            background: #FFFDF8;
+            color: #17365D;
+            border-color: var(--line)
+        }
+
+        .danger {
+            background: #F8E8D5;
+            color: #7A3E13;
+            border-color: #E1B98A
+        }
+
+        .primary:disabled,
+        .ghost:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        .button-row {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap
+        }
+
+        .notice {
+            border: 1px solid #2454A6;
+            background: #F6EEDD;
+            color: #48617F;
+            border-radius: 12px;
+            padding: 11px 13px;
+            font-size: 12px;
+            line-height: 1.5
+        }
+
+        .notice.good {
+            border-color: #2454A6;
+            background: #FFFDF8;
+            color: #2454A6
+        }
+
+        .notice.warn {
+            border-color: #E8C66A;
+            background: #F6EEDD;
+            color: #17365D
+        }
+
+        .notice.bad {
+            border-color: #E8C66A;
+            background: #F6EEDD;
+            color: #17365D
+        }
+
+        .field {
+            margin: 14px 0
+        }
+
+        .field label {
+            display: block;
+            color: #48617F;
+            font-size: 12px;
+            margin-bottom: 7px
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            background: #FFFDF8;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            color: var(--text);
+            padding: 11px 12px;
+            outline: none
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 120px
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #2454A6;
+            box-shadow: 0 0 0 3px rgba(23, 105, 194, .14)
+        }
+
+        .login {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 26px
+        }
+
+        .login-card {
+            width: min(1120px, 100%);
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: rgba(255, 248, 239, .98);
+            box-shadow: var(--shadow)
+        }
+
+        .login-hero {
+            padding: 60px;
+            background: linear-gradient(145deg, #17365D, #2454A6)
+        }
+
+        .login-hero h1 {
+            font: 700 54px/1 'Space Grotesk';
+            margin: 17px 0
+        }
+
+        .login-hero .lead {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #FFFDF8;
+            max-width: 650px
+        }
+
+        .pillrow {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-top: 26px
+        }
+
+        .pill {
+            border: 1px solid #E8C66A;
+            background: #F6EEDD;
+            color: #17365D;
+            padding: 8px 11px;
+            border-radius: 999px;
+            font-size: 12px
+        }
+
+        .login-form {
+            padding: 46px
+        }
+
+        .login-form h2 {
+            font: 700 28px 'Space Grotesk';
+            margin: 0 0 8px
+        }
+
+        .login-note {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line)
+        }
+
+        .loadout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 11px
+        }
+
+        .skillchip {
+            border: 1px solid #E8C66A;
+            background: #FFFDF8;
+            border-radius: 14px;
+            padding: 13px
+        }
+
+        .skillchip strong {
+            display: block;
+            font-size: 13px
+        }
+
+        .skillchip small {
+            display: block;
+            margin: 4px 0 9px;
+            color: #48617F
+        }
+
+        .skillchip .bar {
+            height: 6px
+        }
+
+        .evidence {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px
+        }
+
+        .evidence-box {
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: #FFFDF8;
+            padding: 13px
+        }
+
+        .evidence-box b {
+            font: 700 22px 'Space Grotesk';
+            display: block;
+            margin-top: 4px
+        }
+
+        .evidence-box small {
+            color: #48617F
+        }
+
+        .course {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start
+        }
+
+        .course h3 {
+            font-size: 17px;
+            margin: 0 0 6px
+        }
+
+        .match {
+            font: 700 20px 'Space Grotesk';
+            color: var(--accent);
+            text-align: right
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 999px;
+            font-size: 10px;
+            border: 1px solid var(--line);
+            color: #48617F;
+            margin-right: 4px
+        }
+
+        .tag.high {
+            border-color: #E8C66A;
+            color: #17365D;
+            background: #F6EEDD
+        }
+
+        .tag.medium {
+            border-color: #2454A6;
+            color: #2454A6
+        }
+
+        .tag.low {
+            border-color: #2454A6;
+            color: #2454A6
+        }
+
+        .assess-wrap {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 16px
+        }
+
+        .drop {
+            border: 1px dashed #E8C66A;
+            background: #FFFDF8;
+            border-radius: 13px;
+            padding: 16px
+        }
+
+        .drop input {
+            margin-top: 11px;
+            width: 100%
+        }
+
+        .loading-card {
+            min-height: 250px;
+            display: grid;
+            place-items: center;
+            text-align: center
+        }
+
+        .loader-ring {
+            width: 46px;
+            height: 46px;
+            border: 3px solid #E8C66A;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .stages {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 720px;
+            margin: 18px auto
+        }
+
+        .stage {
+            padding: 9px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #FFFDF8;
+            color: #48617F;
+            font-size: 11px
+        }
+
+        .stage.active {
+            border-color: #2454A6;
+            color: #17365D;
+            background: #F6EEDD
+        }
+
+        .stage.done {
+            border-color: #2454A6;
+            color: #2454A6;
+            background: #FFFDF8
+        }
+
+        .quiz-q {
+            padding: 18px 0;
+            border-top: 1px solid #E8C66A
+        }
+
+        .quiz-q:first-of-type {
+            border-top: 0
+        }
+
+        .quiz-q h4 {
+            margin: 0 0 12px;
+            font-size: 16px;
+            line-height: 1.5
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px
+        }
+
+        .option {
+            padding: 12px;
+            text-align: left;
+            border-radius: 11px;
+            border: 1px solid #E8C66A;
+            background: #FFFDF8;
+            color: #17365D
+        }
+
+        .option:hover {
+            border-color: #2454A6
+        }
+
+        .option.selected {
+            border-color: #2454A6;
+            background: #F6EEDD
+        }
+
+        .option.correct {
+            border-color: #2454A6;
+            background: #FFFDF8
+        }
+
+        .option.wrong {
+            border-color: #E8C66A;
+            background: #F6EEDD
+        }
+
+        .result {
+            border: 1px solid #2454A6;
+            background: linear-gradient(135deg, #FFFDF8, #FFFDF8);
+            border-radius: 17px;
+            padding: 20px
+        }
+
+        .score {
+            font: 700 50px 'Space Grotesk';
+            color: var(--accent);
+            margin: 4px 0
+        }
+
+        .topic-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 45px;
+            gap: 10px;
+            align-items: center;
+            margin: 9px 0;
+            font-size: 12px
+        }
+
+        .topic-score {
+            color: #48617F;
+            text-align: right
+        }
+
+        .review-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .review-item:last-child {
+            border-bottom: 0
+        }
+
+        .review-item .q {
+            font-weight: 700;
+            line-height: 1.45
+        }
+
+        .review-choice {
+            display: flex;
+            gap: 8px;
+            margin-top: 7px;
+            font-size: 12px;
+            color: #48617F
+        }
+
+        .right {
+            color: #2454A6
+        }
+
+        .wrong-t {
+            color: #17365D
+        }
+
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 14px;
+            min-height: 620px
+        }
+
+        .chat-sessions {
+            padding: 12px
+        }
+
+        .session-btn {
+            width: 100%;
+            text-align: left;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            background: transparent;
+            color: #48617F;
+            padding: 10px;
+            margin: 2px 0
+        }
+
+        .session-btn:hover,
+        .session-btn.active {
+            background: #F6EEDD;
+            border-color: #48617F;
+            color: #17365D
+        }
+
+        .chat-panel {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            min-height: 620px
+        }
+
+        .messages {
+            padding: 18px;
+            overflow: auto;
+            max-height: 535px
+        }
+
+        .msg {
+            max-width: 84%;
+            padding: 12px 14px;
+            border-radius: 15px;
+            margin: 8px 0;
+            line-height: 1.6;
+            font-size: 13px
+        }
+
+        .msg.ai {
+            background: #FFFDF8;
+            border: 1px solid #E8C66A
+        }
+
+        .msg.me {
+            background: linear-gradient(135deg, #2454A6, #2454A6);
+            border: 1px solid #2454A6;
+            margin-left: auto
+        }
+
+        .composer {
+            padding: 13px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            gap: 9px
+        }
+
+        .composer input {
+            flex: 1;
+            background: #FFFDF8;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            color: var(--text);
+            padding: 12px
+        }
+
+        .md h2,
+        .md h3 {
+            font-family: 'Space Grotesk';
+            margin: 12px 0 6px
+        }
+
+        .md p {
+            margin: 8px 0
+        }
+
+        .md ul,
+        .md ol {
+            margin: 8px 0 8px 20px
+        }
+
+        .md blockquote {
+            margin: 9px 0;
+            padding: 8px 12px;
+            border-left: 3px solid #2454A6;
+            color: #48617F;
+            background: #FFFDF8
+        }
+
+        .md pre {
+            white-space: pre-wrap;
+            background: #17365D;
+            border: 1px solid #E8C66A;
+            padding: 11px;
+            border-radius: 10px
+        }
+
+        .md code {
+            background: #FFFDF8;
+            border: 1px solid #E8C66A;
+            border-radius: 5px;
+            padding: 1px 4px
+        }
+
+        .typing {
+            color: #48617F;
+            font-size: 12px;
+            padding: 4px 15px
+        }
+
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .rubric {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px
+        }
+
+        .rubric .item {
+            padding: 10px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: #FFFDF8;
+            font-size: 12px
+        }
+
+        .score-ring {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(var(--accent) 0deg, var(--accent) var(--deg), #E8C66A var(--deg), #E8C66A 360deg)
+        }
+
+        .score-ring>div {
+            height: 98px;
+            width: 98px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #FFFDF8;
+            font: 700 26px 'Space Grotesk'
+        }
+
+        .history-card {
+            padding: 15px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: #FFFDF8
+        }
+
+        .timeline {
+            display: grid;
+            gap: 10px
+        }
+
+        .timeline .event {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 10px;
+            font-size: 12px
+        }
+
+        .timeline .event span:first-child {
+            color: #48617F
+        }
+
+        .mini-chart {
+            display: grid;
+            gap: 10px
+        }
+
+        .mini-bar-row {
+            display: grid;
+            grid-template-columns: 140px 1fr 45px;
+            gap: 9px;
+            align-items: center;
+            font-size: 12px
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px
+        }
+
+        .login-hidden {
+            display: none
+        }
+
+        .toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 100;
+            padding: 12px 15px;
+            border: 1px solid #E8C66A;
+            background: #2454A6;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            font-size: 12px;
+            color: #FFFFFF
+        }
+
+        @media(max-width:1100px) {
+            .layout {
+                grid-template-columns: 210px 1fr
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .grid.three {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .assess-wrap,
+            .sim-grid {
+                grid-template-columns: 1fr
+            }
+
+            .admin-grid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:820px) {
+            .layout {
+                grid-template-columns: 1fr
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 72px;
+                width: 260px;
+                z-index: 40;
+                transition: left .2s
+            }
+
+            .sidebar.open {
+                left: 0
+            }
+
+            .main {
+                padding: 22px 16px 45px
+            }
+
+            .topbar {
+                padding: 0 14px
+            }
+
+            .grid.two,
+            .grid.three,
+            .loadout,
+            .evidence,
+            .options,
+            .chat-layout {
+                grid-template-columns: 1fr
+            }
+
+            .page-head {
+                flex-direction: column
+            }
+
+            .login-card {
+                grid-template-columns: 1fr
+            }
+
+            .login-hero {
+                padding: 38px
+            }
+
+            .login-hero h1 {
+                font-size: 42px
+            }
+
+            .login-form {
+                padding: 30px
+            }
+
+            .chat-layout {
+                min-height: 560px
+            }
+
+            .chat-panel {
+                min-height: 560px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        const APP = {
+            userId: null, state: null, currentPage: 'dashboard', currentSession: null, quiz: null, answers: {}, materialId: null, materialText: '', sim: null
+        };
+        const $ = (s, r = document) => r.querySelector(s); const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+        function esc(s = '') {return String(s).replace(/[&<>'"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[c]))}
+        function qs() {return new URLSearchParams(location.search)}
+        async function api(path, opt = {}) {const r = await fetch(path, opt); let d = {}; try {d = await r.json()} catch { } if (!r.ok) throw new Error(d.error || 'Request failed'); return d}
+        function post(path, body) {return api(path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)})}
+        function renderLogin(roles) {
+            document.body.innerHTML = `<div class="login"><div class="login-card"><div class="login-hero"><div class="eyebrow">COMPETENCY INTELLIGENCE</div><h1>From learning records<br/>to capability evidence.</h1><p class="lead">A role-aware learning workspace that connects competency gaps, assessments, practical evidence, recommendations and meaningful progress into one continuous loop.</p><div class="pillrow"><span class="pill">Role → competency profile</span><span class="pill">AI-grounded assessment</span><span class="pill">Practical simulations</span><span class="pill">Explainable recommendations</span><span class="pill">Persistent learning history</span></div><div class="login-note"><div class="small">Prototype mode</div><p class="sub" style="margin:4px 0 0">Use a sample employee identity below. Data is kept locally in SQLite for this running instance.</p></div></div><div class="login-form"><div class="eyebrow">WELCOME BACK</div><h2>Enter your learning workspace</h2><p class="sub">Your role determines the competency priorities you see.</p><div class="field"><label>Name</label><input id="loginName" value="Ananya Sharma" maxlength="80"/></div><div class="field"><label>Department</label><input id="loginDept" value="Ministry / Department of Statistics" maxlength="120"/></div><div class="field"><label>Role</label><select id="loginRole">${roles.map(r => `<option value="${esc(r.name)}">${esc(r.name)}</option>`).join('')}</select></div><button class="primary" style="width:100%;margin-top:8px" onclick="login()">Enter workspace →</button><div id="loginMsg" class="notice" style="margin-top:14px">No credentials required for this prototype workspace.</div></div></div></div>`;
+        }
+        async function login() {const msg = $('#loginMsg'); msg.className = 'notice'; msg.textContent = 'Opening your competency profile…'; try {const d = await post('/api/login', {name: $('#loginName').value, department: $('#loginDept').value, role: $('#loginRole').value}); APP.userId = d.user_id; APP.state = d.state; sessionStorage.setItem('user_id', APP.userId); renderApp(); showPage('dashboard')} catch (e) {msg.className = 'notice bad'; msg.textContent = e.message} }
+        function renderApp() {document.body.innerHTML = `<div class="app-shell"><header class="topbar"><div class="brand"><div class="brandmark">K</div><div>Karmayogi AI</div><button class="ghost mobile-menu" onclick="toggleSidebar()" style="display:none">☰</button></div><div class="topbar-right"><div id="topRole" class="toprole"></div><div id="avatar" class="avatar"></div><button class="ghost" onclick="logout()">Sign out</button></div></header><div class="layout"><aside id="sidebar" class="sidebar"><div class="profile-mini"><div class="small">CURRENT PROFILE</div><div id="sideName" class="profile-name" style="margin-top:4px"></div><div id="sideRole" class="small" style="margin-top:3px"></div><div class="level"><b id="sideLevel">Level 8</b><span id="sideXpText" class="small"></span></div><div class="xpbar"><div id="sideXp" class="xpfill"></div></div></div><div class="nav"><div class="nav-title">Workspace</div><button data-page="dashboard" onclick="showPage('dashboard')">Overview<span>⌂</span></button><button data-page="skills" onclick="showPage('skills')">Competency loadout<span>◈</span></button><button data-page="quiz" onclick="showPage('quiz')">Assessments<span>✓</span></button><button data-page="roadmap" onclick="showPage('roadmap')">Learning roadmap<span>→</span></button><button data-page="practice" onclick="showPage('practice')">Workplace practice<span>◎</span></button><button data-page="chat" onclick="showPage('chat')">AI Tutor<span>✦</span></button><div class="nav-title">Insights</div><button data-page="analytics" onclick="showPage('analytics')">Evidence & progress<span>↗</span></button><button data-page="admin" onclick="showPage('admin')">Workforce view<span>▦</span></button><div class="nav-title">System</div><button data-page="settings" onclick="showPage('settings')">AI connection<span>⚙</span></button></div><div class="sidebar-foot">Scores are evidence summaries, not objective truth. Confidence rises with repeated and varied evidence.</div></aside><main id="main" class="main"><div id="page"></div></main></div></div><div id="toast" class="toast hidden"></div>`; renderShell()}
+        function toggleSidebar() {$('#sidebar').classList.toggle('open')}
+        function logout() {sessionStorage.removeItem('user_id'); location.reload()}
+        function renderShell() {const s = APP.state, u = s.user; $('#topRole').textContent = u.role; $('#avatar').textContent = u.name.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase(); $('#sideName').textContent = u.name; $('#sideRole').textContent = u.role; $('#sideLevel').textContent = 'Level ' + (Math.floor(u.xp / 100) + 1); $('#sideXpText').textContent = u.xp + ' XP'; $('#sideXp').style.width = ((u.xp % 1000) / 10) + '%'}
+        function showPage(p) {APP.currentPage = p; $$('.nav button').forEach(b => b.classList.toggle('active', b.dataset.page === p)); if (window.innerWidth < 820) $('#sidebar').classList.remove('open'); ({dashboard: renderDashboard, skills: renderSkills, quiz: renderQuiz, roadmap: renderRoadmap, practice: renderPractice, chat: renderChat, analytics: renderAnalytics, admin: renderAdmin, settings: renderSettings}[p] || renderDashboard)()}
+        function skillRows() {return APP.state.skills.map(x => `<div class="skill"><div class="skilltop"><span>${esc(x.skill_name)}</span><span class="${x.score < 55 ? 'gap' : ''}">${x.score}/100</span></div><div class="bar"><div class="fill" style="width:${x.score}%"></div></div></div>`).join('')}
+        function gapLabel(x) {return `<span class="tag ${x.score < 55 ? 'high' : x.score < 70 ? 'medium' : 'low'}">${esc(x.status)}</span>`}
+        function renderDashboard() {const s = APP.state, weak = s.gaps[0], strong = [...s.skills].sort((a, b) => b.score - a.score).slice(0, 3); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">KARMAYOGI COCKPIT</div><h2>Good evening, ${esc(s.user.name.split(' ')[0])}.</h2><p class="sub">${esc(s.user.role)} · ${esc(s.user.department)}</p></div><div class="badge hot">◉ ${s.user.streak} day learning streak</div></div><div class="stats"><div class="card stat"><div class="label">COMPETENCY INDEX</div><div class="value">${s.avg_competency}%</div><div class="delta">Evidence-weighted snapshot</div></div><div class="card stat"><div class="label">PRIORITY GAP</div><div class="value" style="font-size:22px">${esc(weak?.skill_name || '—')}</div><div class="delta" style="color:var(--gold)">${weak ? weak.gap + ' points to target' : ''}</div></div><div class="card stat"><div class="label">KARMA XP</div><div class="value">${s.user.xp}</div><div class="delta">Level ${Math.floor(s.user.xp / 100) + 1}</div></div><div class="card stat"><div class="label">ASSESSMENTS</div><div class="value">${s.assessments.length}</div><div class="delta">${s.assessments[0] ? s.assessments[0].percentage + '% latest' : 'Ready for first diagnostic'}</div></div></div><div class="grid two" style="margin-top:16px"><div class="card"><div class="section-title">Your competency loadout</div>${skillRows()}<div class="button-row"><button class="ghost" onclick="showPage('skills')">Inspect evidence →</button><button class="primary" onclick="showPage('quiz')">Practice ${esc(weak?.skill_name || 'priority skill')}</button></div></div><div class="card"><div class="section-title">Today’s missions</div>${s.quests.map(q => `<div class="mission"><div style="display:flex;align-items:center;gap:9px"><button class="check ${q.status === 'complete' ? 'done' : ''}" onclick="completeQuest(${q.id})">${q.status === 'complete' ? '✓' : ''}</button><span>${esc(q.title)}</span></div><span class="xp">+${q.xp_reward} XP</span></div>`).join('')}<div class="notice" style="margin-top:12px">Meaningful actions earn XP: assessment, learning, workplace practice and contextual tutoring—not passive time.</div></div></div><div class="grid three" style="margin-top:16px"><div class="card"><div class="eyebrow">NEXT BEST ACTION</div><h3 style="margin:7px 0 6px">Close ${esc(weak?.skill_name || 'your priority gap')}</h3><p class="sub">${weak ? weak.score + '/100 current competency against an 80/100 target.' : ''}</p><button class="primary" onclick="showPage('roadmap')">See learning path →</button></div><div class="card"><div class="eyebrow">PROVE CAPABILITY</div><h3 style="margin:7px 0 6px">Practice in a real-work scenario</h3><p class="sub">MCQs measure knowledge; a workplace simulation adds practical evidence.</p><button class="ghost" onclick="showPage('practice')">Open scenario →</button></div><div class="card"><div class="eyebrow">LEARN WITH CONTEXT</div><h3 style="margin:7px 0 6px">Ask the AI Tutor</h3><p class="sub">The tutor can use your role, priority gaps, uploaded material and recent conversation.</p><button class="ghost" onclick="showPage('chat')">Open tutor →</button></div></div><div class="grid two" style="margin-top:16px"><div class="card"><div class="section-title">Strongest competencies</div>${strong.map(x => `<div class="list-row"><span>${esc(x.skill_name)}</span><strong>${x.score}%</strong></div>`).join('')}</div><div class="card"><div class="section-title">Recent evidence</div>${s.assessments.length ? s.assessments.slice(0, 4).map(a => `<div class="list-row"><span><b>${esc(a.title)}</b><br><span class="small">${new Date(a.completed_at).toLocaleDateString()} · ${esc(a.topic)}</span></span><strong>${a.percentage}%</strong></div>`).join('') : '<div class="notice">Your first completed assessment will appear here with topic-wise evidence.</div>'}</div></div>`}
+        async function completeQuest(id) {try {const d = await post('/api/quests/complete', {user_id: APP.userId, quest_id: id}); APP.state = d.state; renderShell(); renderDashboard(); toast(d.already ? 'Already completed.' : 'Mission completed · +' + d.xp + ' XP')} catch (e) {toast(e.message, 'bad')} }
+        function renderSkills() {const s = APP.state, skills = [...s.skills].sort((a, b) => a.score - b.score), priority = skills.slice(0, 4); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">COMPETENCY LOADOUT</div><h2>What your evidence says right now</h2><p class="sub">Each score compares current evidence with an 80/100 prototype target. Confidence reflects evidence volume and consistency.</p></div><span class="badge">Prototype competency mapping</span></div><div class="grid two"><div class="card"><div class="section-title">Current capability</div><div class="loadout">${skills.map(x => `<div class="skillchip"><strong>${x.score < 55 ? '⚠' : '✓'} ${esc(x.skill_name)}</strong><small>${x.score}/100 · ${esc(x.confidence)} confidence · gap ${x.gap}</small><div class="bar"><div class="fill" style="width:${x.score}%"></div></div></div>`).join('')}</div></div><div class="card"><div class="section-title">Priority gaps</div>${priority.map((x, i) => `<div class="list-row"><div><b>#${i + 1} ${esc(x.skill_name)}</b><div class="small">${x.score}/100 current · target ${x.required_score}</div></div>${gapLabel(x)}</div>`).join('')}<div class="notice" style="margin-top:13px">A competency is not presented as objective truth. The product keeps the evidence trail visible so scores can be challenged, improved and rechecked.</div></div></div><div class="card" style="margin-top:16px"><div class="section-title">How a score is built</div><div class="evidence"><div class="evidence-box"><span class="small">BASELINE</span><b>Role</b><small>Prototype role mapping establishes starting context.</small></div><div class="evidence-box"><span class="small">ASSESSMENT</span><b>Recent</b><small>Topic performance updates competency evidence.</small></div><div class="evidence-box"><span class="small">PRACTICAL</span><b>Simulation</b><small>Workplace responses add demonstrated capability evidence.</small></div></div></div>`}
+        function renderQuiz() {const weak = APP.state.gaps[0]; $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">AI ASSESSMENT ENGINE</div><h2>Turn learning material into measurable evidence</h2><p class="sub">Generate a source-grounded MCQ assessment, validate it, score by topic, and feed the evidence back into your competency profile.</p></div><span class="badge">PDF · DOCX · TXT · MD · 12 MB</span></div><div class="assess-wrap"><div class="card"><div class="field"><label>Assessment topic</label><input id="qtopic" value="${esc(weak?.skill_name || 'Government Competency')}" maxlength="120"/></div><div class="field"><label>Question count</label><select id="qcount"><option>5</option><option selected>6</option><option>8</option><option>10</option></select></div><div class="drop"><b>Ground the assessment in learning material</b><div class="small" style="margin-top:4px">Upload a source document. The backend extracts text and selects relevant chunks instead of sending a giant file blindly.</div><input type="file" id="materialFile" accept=".pdf,.docx,.txt,.md" onchange="uploadMaterial()"/><div id="fileStatus" class="small" style="margin-top:9px">No document attached.</div></div><div class="field"><label>Or paste learning material</label><textarea id="materialText" rows="7" placeholder="Paste notes, a training module, policy excerpt or study material…">${esc(APP.materialText || '')}</textarea></div><button class="primary" style="width:100%" onclick="generateQuiz()">✦ Generate assessment</button><div class="notice" style="margin-top:12px">AI generation uses structured JSON plus validation. Without an AI key, the saved local fallback still demonstrates the full scoring loop.</div></div><div><div id="quizArea" class="card" style="min-height:330px"><div class="section-title">Assessment flow</div><div class="timeline"><div class="event"><span>01</span><div><b>Extract</b><div class="small">Read PDF/DOCX/TXT/MD</div></div></div><div class="event"><span>02</span><div><b>Ground</b><div class="small">Select relevant content</div></div></div><div class="event"><span>03</span><div><b>Generate</b><div class="small">Create 4-option MCQs with explanations</div></div></div><div class="event"><span>04</span><div><b>Validate</b><div class="small">Reject malformed or duplicate questions</div></div></div><div class="event"><span>05</span><div><b>Measure</b><div class="small">Topic and difficulty evidence</div></div></div></div></div></div></div>`}
+        async function uploadMaterial() {const f = $('#materialFile').files[0]; if (!f) return; if (f.size > 12 * 1024 * 1024) {$('#fileStatus').textContent = 'File is larger than 12 MB.'; return } const fd = new FormData(); fd.append('user_id', APP.userId); fd.append('file', f); $('#fileStatus').textContent = 'Extracting text…'; try {const d = await api('/api/materials/upload', {method: 'POST', body: fd}); APP.materialId = d.id; APP.materialText = ''; $('#fileStatus').innerHTML = `<b>${esc(d.filename)}</b> · ${d.chars.toLocaleString()} characters extracted`; toast('Learning material attached')} catch (e) {$('#fileStatus').textContent = e.message} }
+        function loadingAssessment() {$('#quizArea').innerHTML = `<div class="loading-card"><div><div class="loader-ring"></div><b id="loadTitle">Reading learning material</b><div class="small" style="margin-top:5px">Generating and validating an assessment without exposing a fake completion percentage.</div><div class="stages"><div class="stage active" id="st1">01 Read</div><div class="stage" id="st2">02 Topics</div><div class="stage" id="st3">03 Generate</div><div class="stage" id="st4">04 Validate</div></div></div></div>`; let i = 1; APP.assessTimer = setInterval(() => {i = Math.min(4, i + 1); for (let n = 1; n <= 4; n++)$('#st' + n).className = 'stage ' + (n < i ? 'done' : n === i ? 'active' : ''); $('#loadTitle').textContent = ['Reading learning material', 'Identifying major topics', 'Generating questions', 'Validating assessment'][i - 1]}, 1600)}
+        async function generateQuiz() {clearInterval(APP.assessTimer); APP.materialText = $('#materialText').value.trim(); loadingAssessment(); try {const d = await post('/api/ai/quiz', {user_id: APP.userId, role: APP.state.user.role, topic: $('#qtopic').value.trim(), count: Number($('#qcount').value), material: APP.materialText, material_id: APP.materialId}); clearInterval(APP.assessTimer); APP.quiz = d.quiz; APP.quiz.id = d.assessment_id; APP.answers = {}; renderQuizQuestions(d); if (d.warning) toast('Saved in local fallback mode'); else toast('Assessment generated')} catch (e) {clearInterval(APP.assessTimer); $('#quizArea').innerHTML = `<div class="notice bad"><b>Assessment generation failed</b><div style="margin:5px 0">${esc(e.message)}</div><button class="primary" onclick="renderQuiz();setTimeout(generateQuiz,50)">Try again</button></div>`} }
+        function renderQuizQuestions(d) {const q = APP.quiz.questions; $('#quizArea').innerHTML = `<div class="page-head"><div><div class="eyebrow">${d.source === 'gemini' ? 'AI-GENERATED' : 'LOCAL FALLBACK'} ASSESSMENT</div><h3 style="font:700 22px 'Space Grotesk';margin:6px 0">${esc(APP.quiz.title)}</h3><p class="sub">${esc(APP.quiz.description || '')}</p></div><span class="badge">${q.length} questions</span></div>${d.warning ? `<div class="notice warn" style="margin-bottom:10px">AI is unavailable for this run, so the assessment used a local validated fallback. Your evidence loop remains intact.</div>` : ''}${q.map((x, i) => `<div class="quiz-q"><h4>${i + 1}. ${esc(x.question)}</h4><div class="small" style="margin-bottom:8px">${esc(x.topic)} · ${esc(x.difficulty || 'medium')}</div><div class="options">${x.options.map((o, j) => `<button class="option" id="qo${i}_${j}" onclick="pickAnswer(${i},${j})">${String.fromCharCode(65 + j)}. ${esc(o)}</button>`).join('')}</div></div>`).join('')}<button class="primary" style="margin-top:10px" onclick="submitQuiz()">Submit assessment →</button>`}
+        function pickAnswer(i, j) {APP.answers[i] = j; $$(`[id^="qo${i}_"]`).forEach(x => x.classList.remove('selected')); $('#qo' + i + '_' + j).classList.add('selected')}
+        async function submitQuiz() {if (!APP.quiz) return; const unanswered = APP.quiz.questions.filter((_, i) => APP.answers[i] === undefined).length; if (unanswered) {toast('Answer all questions before submitting'); return } try {const d = await post('/api/assessments/submit', {user_id: APP.userId, assessment_id: APP.quiz.id, answers: APP.quiz.questions.map((_, i) => APP.answers[i])}); APP.state = d.state; renderShell(); renderResult(d)} catch (e) {toast(e.message)} }
+        function renderResult(d) {$('#quizArea').innerHTML = `<div class="result"><div class="small">ASSESSMENT RESULT</div><div class="score">${d.percentage}%</div><p>${d.score}/${d.details.length} correct · +${d.score * 10} XP · competency evidence updated</p><div class="section-title">Topic performance</div>${Object.entries(d.topics).map(([t, v]) => `<div class="topic-row"><span>${esc(t)}</span><div class="bar"><div class="fill" style="width:${v}%"></div></div><span class="topic-score">${v}%</span></div>`).join('')}<div class="section-title">Competency evidence changes</div>${d.evidence.map(e => `<div class="mission"><span><b>${esc(e.skill)}</b><br><span class="small">Topic ${e.topic_score}% · ${e.before} → ${e.after}</span></span><strong class="${e.delta >= 0 ? 'right' : 'wrong-t'}">${e.delta >= 0 ? '+' : ''}${e.delta}</strong></div>`).join('')}<div class="button-row" style="margin-top:14px"><button class="primary" onclick="showPage('roadmap')">See updated recommendation →</button><button class="ghost" onclick="showPage('analytics')">Open evidence history</button></div></div><div class="card" style="margin-top:14px"><div class="section-title">Review answers</div>${d.details.map((q, i) => `<div class="review-item"><div class="q">${i + 1}. ${esc(q.question)}</div><div class="review-choice"><span>Correct: ${String.fromCharCode(65 + q.correct_answer)}. ${esc(q.options[q.correct_answer])}</span></div><div class="small" style="margin-top:6px">${esc(q.explanation)}</div></div>`).join('')}</div>`}
+        async function renderRoadmap() {$('#page').innerHTML = `<div class="loading-card card"><div><div class="loader-ring"></div><b>Refreshing learning priorities</b><div class="small">Matching your latest competency evidence to the local normalized course catalogue.</div></div></div>`; try {const d = await post('/api/igot/recommend', {user_id: APP.userId}); APP.state = await api('/api/state?user_id=' + APP.userId); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">LEARNING ROADMAP</div><h2>Your next-best learning path</h2><p class="sub">Recommendations are explainable: each one names the gap it is intended to improve.</p></div><span class="badge">LOCAL COURSE CATALOGUE</span></div><div class="grid two"><div class="card"><div class="section-title">Priority gaps</div>${d.gaps.map(g => `<div class="list-row"><div><b>${esc(g.skill)}</b><div class="small">Current ${g.score}/100</div></div>${gapLabel({score: g.score, status: g.score < 55 ? 'Priority gap' : g.score < 70 ? 'Needs improvement' : 'On track'})}</div>`).join('')}</div><div class="card"><div class="section-title">Integration boundary</div><div class="notice">This build uses a normalized prototype catalogue so the frontend stays unchanged when an approved, authenticated external learning adapter is introduced. No protected endpoint is scraped.</div><p class="small" style="margin-top:10px">Live connected resources require the appropriate platform access and credentials.</p></div></div><div class="section-title">Recommended learning</div><div class="grid two">${d.recommendations.map(c => `<div class="card course"><div><div class="small">${esc(c.provider)} · ${esc(c.duration)} · ${esc(c.level)}</div><h3>${esc(c.title)}</h3><div>${c.skills.map(x => `<span class="tag">${esc(x)}</span>`).join('')}</div><p class="sub" style="margin-top:10px"><b>Why:</b> ${esc(c.reason)}</p></div><div><div class="match">${c.match}%</div><div class="small" style="text-align:right">${esc(c.priority)}</div><button class="ghost" style="margin-top:10px" onclick="logLearning('${esc(c.id)}','${esc(c.title).replaceAll("'", "\\'")}')">Log learning action</button><a class="ghost" style="display:inline-block;margin-top:8px;text-decoration:none" target="_blank" href="${c.url}">Open platform ↗</a></div></div>`).join('')}</div>`} catch (e) {$('#page').innerHTML = `<div class="notice bad">${esc(e.message)}</div>`} }
+        async function logLearning(id, title) {try {const d = await post('/api/learning/log', {user_id: APP.userId, course_id: id}); APP.state = d.state; renderShell(); toast(title + ' logged · +60 XP'); renderRoadmap()} catch (e) {toast(e.message)} }
+        function renderPractice() {const role = APP.state.user.role; const bank = {"Statistical Officer": ['Statistical Officer', 'District Applications: The 35% Spike', 'A district reports a sudden 35% increase in applications this month. Before drawing a conclusion, explain the possible causes and what additional data you would request. Your response should show how you would test whether the increase reflects real demand, a reporting change, or a data-quality issue.'], "Data Analyst / Research Officer": ['Data Analyst / Research Officer', 'Dashboard Drift: A Sudden Metric Change', 'A monitoring dashboard shows a sudden 22% drop in service completion after a data pipeline change. Explain how you would investigate the issue before briefing leadership, including the checks you would run and the evidence you would want.'], "Section Officer / Administration": ['Section Officer / Administration', 'Urgent File, Missing Record', 'A senior officer asks for an urgent decision note, but the supporting record is incomplete. Explain how you would proceed while protecting due process, documenting assumptions, and keeping the file moving.'], "Program / Project Manager": ['Program / Project Manager', 'Delivery at Risk', 'A flagship program is on schedule overall, but one critical vendor milestone is two weeks late. Explain the actions you would take in the next 48 hours, what evidence you need, and how you would communicate the risk.'], "IT / Digital Governance Officer": ['IT / Digital Governance Officer', 'Citizen Portal Incident', 'A citizen-facing portal experiences repeated failed logins and a spike in unusual traffic. Explain your first-response priorities, what evidence you would collect, and how you would communicate while preserving security and continuity.']}[role]; $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">WORKPLACE PRACTICE</div><h2>${esc(bank[1])}</h2><p class="sub">Practical evidence complements MCQ knowledge checks. Your response is evaluated against a transparent rubric.</p></div><span class="badge ok">ROLE: ${esc(bank[0])}</span></div><div class="sim-grid"><div class="card"><div class="section-title">Scenario</div><p class="sub" style="font-size:14px">${esc(bank[2])}</p><div class="section-title">Evaluation rubric</div><div class="rubric">${['Reasoning', 'Evidence / data interpretation', 'Decision quality', 'Role-specific knowledge', 'Communication'].map(x => `<div class="item">✓ ${x}</div>`).join('')}</div></div><div><div class="card"><div class="field" style="margin-top:0"><label>Your response</label><textarea id="simResponse" rows="15" placeholder="Explain what you would do, what evidence you would request, and how you would decide…"></textarea></div><button class="primary" onclick="evaluateSimulation()">Evaluate response →</button><div class="notice" style="margin-top:12px">AI scoring is advisory prototype evidence. It does not constitute an official performance evaluation.</div></div><div id="simResult" style="margin-top:14px"></div></div></div>`}
+        async function evaluateSimulation() {const r = $('#simResponse').value.trim(); if (r.length < 40) {toast('Write a little more so the rubric can evaluate your reasoning'); return } $('#simResult').innerHTML = `<div class="card loading-card"><div><div class="loader-ring"></div><b>Evaluating your response</b><div class="small">Checking reasoning, evidence use, decision quality, role relevance and communication.</div></div></div>`; try {const d = await post('/api/simulation/evaluate', {user_id: APP.userId, role: APP.state.user.role, response: r}); APP.state = d.state; renderShell(); $('#simResult').innerHTML = `<div class="card"><div class="row"><div><div class="eyebrow">PRACTICAL EVIDENCE</div><h3 style="font:700 24px 'Space Grotesk';margin:5px 0">${d.score}/100</h3><p class="sub">${esc(d.feedback)}</p></div><div class="score-ring" style="--deg:${d.score * 3.6}deg"><div>${d.score}</div></div></div><div class="grid two" style="margin-top:15px"><div><div class="section-title">Strengths</div>${d.strengths.map(x => `<div class="notice good" style="margin:7px 0">✓ ${esc(x)}</div>`).join('')}</div><div><div class="section-title">Next improvements</div>${d.weaknesses.map(x => `<div class="notice warn" style="margin:7px 0">→ ${esc(x)}</div>`).join('')}</div></div>${d.evidence.map(e => `<div class="notice" style="margin-top:12px"><b>${esc(e.skill)}</b> evidence updated: ${e.before} → ${e.after} (${e.delta >= 0 ? '+' : ''}${e.delta})</div>`).join('')}</div>`; toast('Practical evidence saved · competency profile updated')} catch (e) {$('#simResult').innerHTML = `<div class="notice bad">${esc(e.message)}<button class="primary" style="margin-left:8px" onclick="evaluateSimulation()">Retry</button></div>`} }
+        async function renderChat() {const sessions = APP.state.chat_sessions; let sid = APP.currentSession; if (!sid && sessions[0]) sid = sessions[0].id; APP.currentSession = sid || null; $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">AI TUTOR</div><h2>A learning conversation with memory</h2><p class="sub">Recent messages persist per user. The tutor receives only a bounded window plus your role and relevant learning context.</p></div><button class="primary" onclick="newChat()">+ New conversation</button></div><div class="chat-layout"><div class="card chat-sessions"><div class="section-title">Recent conversations</div><div id="sessionList"></div><div class="notice" style="margin-top:11px">Context is bounded to keep prompts efficient.</div></div><div class="card chat-panel"><div id="messages" class="messages"></div><div><div id="typing" class="typing hidden">AI Tutor is composing…</div><div class="composer"><input id="chatInput" placeholder="Ask about your priority gap, a concept or your learning material…" onkeydown="if(event.key==='Enter')sendChat()"/><button class="primary" id="sendBtn" onclick="sendChat()">Send</button></div></div></div></div>`; renderSessions(); await loadChatSession(APP.currentSession)}
+        function renderSessions() {const box = $('#sessionList'); if (!APP.state.chat_sessions.length) {box.innerHTML = '<div class="small">No conversations yet. Start one when you are ready.</div>'; return } box.innerHTML = APP.state.chat_sessions.map(s => `<button class="session-btn ${APP.currentSession === s.id ? 'active' : ''}" onclick="loadChatSession(${s.id})">${esc(s.title)}</button>`).join('')}
+        async function newChat() {try {const d = await post('/api/chat/session', {user_id: APP.userId, title: 'New learning conversation'}); APP.currentSession = d.session_id; APP.state = await api('/api/state?user_id=' + APP.userId); renderChat()} catch (e) {toast(e.message)} }
+        async function loadChatSession(sid) {if (!sid) {$('#messages').innerHTML = '<div class="msg ai"><div class="md"><h2>Start with a learning question</h2><p>Try: <b>Why is my SQL competency the priority gap?</b></p><p>I’ll use your role, recent evidence and relevant context.</p></div></div>'; return } APP.currentSession = sid; renderSessions(); try {const d = await api('/api/chat/sessions/' + sid); $('#messages').innerHTML = d.messages.map(m => `<div class="msg ${m.role === 'assistant' ? 'ai' : 'me'}">${m.role === 'assistant' ? md(m.content) : esc(m.content)}</div>`).join(''); $('#messages').scrollTop = 1e9} catch (e) {$('#messages').innerHTML = `<div class="notice bad">${esc(e.message)}</div>`} }
+        function md(src) {let s = esc(src).replace(/```([\s\S]*?)```/g, '<pre>$1</pre>'); s = s.replace(/^### (.*)$/gm, '<h3>$1</h3>').replace(/^## (.*)$/gm, '<h2>$1</h2>').replace(/^# (.*)$/gm, '<h2>$1</h2>'); s = s.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>'); s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/`([^`]+)`/g, '<code>$1</code>'); s = s.replace(/^(?:- |\* )(.*)$/gm, '<li>$1</li>').replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>'); s = s.split(/\n\n+/).map(x => {if (/^<(h2|h3|blockquote|pre|ul)/.test(x)) return x; return '<p>' + x.replace(/\n/g, '<br>') + '</p>'}).join(''); return '<div class="md">' + s + '</div>'}
+        async function sendChat() {const inp = $('#chatInput'), msg = inp.value.trim(); if (!msg) return; inp.value = ''; $('#sendBtn').disabled = true; $('#typing').classList.remove('hidden'); const box = $('#messages'); box.insertAdjacentHTML('beforeend', `<div class="msg me">${esc(msg)}</div>`); box.scrollTop = 1e9; try {const d = await post('/api/ai/chat', {user_id: APP.userId, role: APP.state.user.role, skills: Object.fromEntries(APP.state.skills.map(x => [x.skill_name, x.score])), material: APP.materialText, session_id: APP.currentSession, message: msg}); APP.currentSession = d.session_id; box.insertAdjacentHTML('beforeend', `<div class="msg ai">${md(d.reply)}</div>`); box.scrollTop = 1e9; APP.state = await api('/api/state?user_id=' + APP.userId); renderShell(); toast(d.source === 'gemini' ? 'AI response saved' : 'Saved in local tutor mode')} catch (e) {box.insertAdjacentHTML('beforeend', `<div class="notice bad">${esc(e.message)} <button class="ghost" onclick="sendChat()">Retry</button></div>`)} finally {$('#sendBtn').disabled = false; $('#typing').classList.add('hidden')} }
+        function renderAnalytics() {const s = APP.state, h = s.assessments, avg = h.length ? Math.round(h.reduce((a, b) => a + b.percentage, 0) / h.length) : 0; const sorted = [...s.skills].sort((a, b) => b.score - a.score); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">EVIDENCE & PROGRESS</div><h2>Did learning improve capability?</h2><p class="sub">This view favors before/after evidence, topic performance and practical demonstration over completion counts.</p></div></div><div class="stats"><div class="card stat"><div class="label">ASSESSMENT AVG.</div><div class="value">${avg}%</div></div><div class="card stat"><div class="label">ATTEMPTS</div><div class="value">${h.length}</div></div><div class="card stat"><div class="label">PRACTICAL SESSIONS</div><div class="value">${s.simulations.length}</div></div><div class="card stat"><div class="label">CONFIDENCE</div><div class="value">${s.skills.filter(x => x.confidence === 'High').length}/${s.skills.length}</div></div></div><div class="grid two" style="margin-top:16px"><div class="card"><div class="section-title">Current skill health</div><div class="mini-chart">${sorted.map(x => `<div class="mini-bar-row"><span>${esc(x.skill_name)}</span><div class="bar"><div class="fill" style="width:${x.score}%"></div></div><strong>${x.score}</strong></div>`).join('')}</div></div><div class="card"><div class="section-title">Evidence timeline</div><div class="timeline">${h.slice(0, 6).map(x => `<div class="event"><span>${new Date(x.completed_at).toLocaleDateString()}</span><div><b>${esc(x.title)}</b><div class="small">${esc(x.topic)} · ${x.percentage}%</div></div></div>`).join('') || '<div class="notice">No completed assessments yet.</div>'}${s.simulations.map(x => `<div class="event"><span>${new Date(x.completed_at).toLocaleDateString()}</span><div><b>Workplace practice</b><div class="small">${esc(x.title)} · ${x.score}/100</div></div></div>`).join('')}</div></div></div><div class="card" style="margin-top:16px"><div class="section-title">Assessment history</div>${h.length ? h.map(x => `<div class="list-row"><div><b>${esc(x.title)}</b><div class="small">${new Date(x.completed_at).toLocaleDateString()} · ${esc(x.topic)} · ${x.question_count || ''} questions</div></div><strong>${x.percentage}%</strong></div>`).join('') : '<div class="notice">Your assessment history will appear here after the first attempt.</div>'}</div>`}
+        async function renderAdmin() {try {const d = await api('/api/admin/analytics'); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">WORKFORCE VIEW</div><h2>Aggregate skill health</h2><p class="sub">Representative local data only. This view is designed as an organizational layer, not an official workforce report.</p></div><span class="badge">${esc(d.dataset)}</span></div><div class="admin-grid"><div class="card stat"><div class="label">EMPLOYEES</div><div class="value">${d.counts.employees}</div></div><div class="card stat"><div class="label">ASSESSMENTS</div><div class="value">${d.counts.assessments}</div></div><div class="card stat"><div class="label">ATTEMPTS</div><div class="value">${d.counts.attempts}</div></div><div class="card stat"><div class="label">PRACTICAL</div><div class="value">${d.counts.simulations}</div></div></div><div class="grid two" style="margin-top:16px"><div class="card"><div class="section-title">Workforce skill health</div>${d.skills.map(x => `<div class="mini-bar-row" style="margin:11px 0"><span>${esc(x.skill_name)}</span><div class="bar"><div class="fill" style="width:${x.avg_score}%"></div></div><strong>${x.avg_score}%</strong></div>`).join('')}</div><div class="card"><div class="section-title">How an administrator uses this</div><div class="mission"><span>Find common gaps</span><span>↓</span></div><div class="mission"><span>See affected competencies</span><span>◈</span></div><div class="mission"><span>Review learning response</span><span>↗</span></div><div class="notice" style="margin-top:11px">Future production mode can scope this view by department, authenticated workforce identity and approved organizational data sources.</div></div></div>`} catch (e) {$('#page').innerHTML = `<div class="notice bad">${esc(e.message)}</div>`} }
+        async function renderSettings() {const h = await api('/api/health'); $('#page').innerHTML = `<div class="page-head"><div><div class="eyebrow">AI CONNECTION</div><h2>Connect your server-side AI engine</h2><p class="sub">API keys are kept on the backend process. The browser never receives the secret.</p></div><span class="badge ${h.aiReachable ? 'ok' : ''}">${h.aiReachable ? 'CONNECTED' : 'LOCAL FALLBACK'}</span></div><div class="grid two"><div class="card"><div class="field"><label>Gemini API key</label><input id="apiKey" type="password" placeholder="Paste a fresh key…"/></div><div class="button-row"><button class="primary" onclick="saveApiKey()">Connect AI</button><button class="ghost" onclick="clearApiKey()">Clear</button></div><div id="aiStatus" class="notice ${h.aiReachable ? 'good' : ''}" style="margin-top:13px">${h.aiReachable ? 'Gemini reachable · ' + esc(h.model) : h.aiConfigured ? 'A key is configured, but the model is unreachable: ' + esc(h.error || 'check model access') : 'No key configured. The application remains usable in local fallback mode.'}</div></div><div class="card"><div class="section-title">Reliability guardrails</div><div class="mission"><span>Structured AI output</span><span>✓</span></div><div class="mission"><span>Question validation</span><span>✓</span></div><div class="mission"><span>Bounded context</span><span>✓</span></div><div class="mission"><span>Server-side secret</span><span>✓</span></div><div class="mission"><span>Graceful fallback</span><span>✓</span></div><div class="notice" style="margin-top:12px">Recommended low-cost model: Gemini 3.5 Flash-Lite. The backend also discovers a currently available Flash family model for the configured key.</div></div></div>`}
+        async function saveApiKey() {const k = $('#apiKey').value.trim(); if (!k) return toast('Paste an API key first'); const d = await post('/api/config', {apiKey: k}); if (d.aiReachable) toast('AI connected · ' + d.model); else toast(d.error || 'AI connection unavailable'); renderSettings()}
+        async function clearApiKey() {await post('/api/config', {clear: true}); toast('AI key cleared from the running backend'); renderSettings()}
+        function toast(t) {const x = $('#toast'); if (!x) return; x.textContent = t; x.classList.remove('hidden'); clearTimeout(window.__toast); window.__toast = setTimeout(() => x.classList.add('hidden'), 2800)}
+        async function boot() {const roles = await api('/api/roles'); const sid = sessionStorage.getItem('user_id'); if (sid) {try {APP.userId = Number(sid); APP.state = await api('/api/state?user_id=' + APP.userId); renderApp(); showPage('dashboard'); return } catch (e) {sessionStorage.removeItem('user_id')} } renderLogin(roles)}
+        boot().catch(e => {document.body.innerHTML = '<div style="padding:40px;color:#fff;font-family:Arial">Unable to start the application: ' + esc(e.message) + '</div>'});
+    </script>
+</body>
+
+</html>

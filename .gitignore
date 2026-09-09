@@ -1,0 +1,48 @@
+# Environment variables and secrets
+.env
+
+# SQLite databases and runtime database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Python cache / compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# JavaScript / Node dependencies
+node_modules/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE / editor settings
+.vscode/
+.idea/
+
+# Common temporary and cache files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+*.egg-info/
