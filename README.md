@@ -2,6 +2,8 @@
 
 A self-contained local application for role-aware competency intelligence, AI-assisted assessments, topic-wise scoring, practical workplace simulations, explainable learning recommendations, persistent progress analytics, an AI tutor with conversation memory, document extraction, and meaningful gamification.
 
+## View the current deployment on 
+
 ## Run on Windows
 1. Install Python 3.10+.
 2. Open this folder in PowerShell.
